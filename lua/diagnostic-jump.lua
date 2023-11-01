@@ -18,7 +18,7 @@ local function popupOpen()
     return #getPopups() > 0
 end
 
-local defaultJumpDiagnosticOpts = {}
+local defaultOpts = {}
 
 local function jump(direction, initialOpts, subsequentOpts)
     initialOpts = initialOpts or {}
@@ -26,7 +26,7 @@ local function jump(direction, initialOpts, subsequentOpts)
 
     if popupOpen() then
         local opts = {}
-        for k, v in pairs(defaultJumpDiagnosticOpts) do opts[k] = v end
+        for k, v in pairs(defaultOpts) do opts[k] = v end
         for k, v in pairs(subsequentOpts) do opts[k] = v end
         vim.diagnostic[direction == 1 and "goto_next" or "goto_prev"](opts)
     else
@@ -52,14 +52,14 @@ local function jump(direction, initialOpts, subsequentOpts)
             cursor_position = { line, col - direction - 1 }
         end
         local opts = { cursor_position = cursor_position }
-        for k, v in pairs(defaultJumpDiagnosticOpts) do opts[k] = v end
+        for k, v in pairs(defaultOpts) do opts[k] = v end
         for k, v in pairs(initialOpts) do opts[k] = v end
         vim.diagnostic[direction == 1 and "goto_next" or "goto_prev"](opts)
     end
 end
 
 local function setup(opts)
-    defaultJumpDiagnosticOpts = opts or {}
+    defaultOpts = opts or {}
 end
 
 return {

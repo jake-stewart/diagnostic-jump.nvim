@@ -9,13 +9,15 @@ navigate diagnostics.
 djump = require("diagnostic-jump")
 ```lua
 djump.setup({
-    format = function(diagnostic)
-        return vim.split(diagnostic.message, "\n")[1]
-    end,
-    prefix = "",
-    suffix = "",
-    focusable = false,
-    header = ""
+    float = {
+        format = function(diagnostic)
+            return vim.split(diagnostic.message, "\n")[1]
+        end,
+        prefix = "",
+        suffix = "",
+        focusable = false,
+        header = ""
+    }
 })
 
 -- navigate diagnostics
